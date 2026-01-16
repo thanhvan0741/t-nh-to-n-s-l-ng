@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng Dụng Tính Toán Số Lượng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9f7ef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quy đổi số xuất</h1>
+    <input type="number" id="num" placeholder="Nhập số xuất" />
+    <button onclick="tinhSoLuong()">Tính</button>
+
+    <div class="result" id="result">
+        <!-- Kết quả sẽ hiển thị ở đây -->
+    </div>
+
+    <script>
+        function tinhSoLuong() {
+            const soXuat = document.getElementById('num').value;
+
+            if (!soXuat) {
+                document.getElementById('result').innerHTML = "Vui lòng nhập số xuất!";
+                return;
+            }
+
+            // --- Bánh xốp ---
+            let soGoiBanhXop = Math.floor(soXuat / 13); // Quy đổi thành gói
+            let soBanhXopConLai = soXuat % 13; // Số bánh xốp còn lại
+
+            // --- Bánh socola ---
+            let soThungBanhSocola = Math.floor(soXuat / 90); // Quy đổi thành thùng
+            let soBanhSocolaConLai = soXuat % 90; // Số bánh socola còn lại
+            let soDayBanhSocola = Math.floor(soBanhSocolaConLai / 10); // Quy đổi thành dây
+            let soBanhSocolaConLaiCuoi = soBanhSocolaConLai % 10; // Số bánh socola còn lại
+
+            // --- Sữa Fami ---
+            let soHopSuaFami = soXuat; // 1 xuất = 1 hộp
+            let soThungSuaFami = Math.floor(soHopSuaFami / 36); // Quy đổi thành thùng
+            let soDaySuaFami = Math.floor((soHopSuaFami % 36) / 6); // Quy đổi thành dây
+            let soHopSuaFamiConLai = soHopSuaFami % 6; // Số hộp còn lại
+
+            // Hiển thị kết quả
+            document.getElementById('result').innerHTML = `
+                <p><strong>Bánh xốp:</strong> ${soGoiBanhXop} gói + ${soBanhXopConLai} cái</p>
+                <p><strong>Bánh socola:</strong> ${soThungBanhSocola} thùng + ${soDayBanhSocola} dây + ${soBanhSocolaConLaiCuoi} cái</p>
+                <p><strong>Sữa Fami:</strong> ${soThungSuaFami} thùng + ${soDaySuaFami} dây + ${soHopSuaFamiConLai} hộp</p>
+            `;
+        }
+    </script>
+
+</body>
+</html>
